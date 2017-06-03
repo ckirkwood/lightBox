@@ -1,4 +1,4 @@
-import time
+import time, sys
 from neopixel import *
 
 # LED strip configuration:
