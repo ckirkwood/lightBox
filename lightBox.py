@@ -29,7 +29,7 @@ if __name__ == '__main__':
 	strip.begin()
 
 	print ('Press Ctrl-C to quit.')
+
 	while True:
 		onOff(strip, Color(255, 255, 255))
-	except KeyboardInterrupt():
-    	sys.exit()
+	
