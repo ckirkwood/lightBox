@@ -30,6 +30,16 @@ def colorWipe(strip, color, wait_ms=50):
 		strip.show()
 		time.sleep(wait_ms/1000.0)
 
+def get_status():
+    global status
+    for pixel in range(48):
+        if strip.getPixelColor(pixel) != (0, 0, 0):
+                status = 1
+        else:
+                status = 0
+    return status
+
+
 # Main program logic:
 if __name__ == '__main__':
 	strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
@@ -39,9 +49,10 @@ if __name__ == '__main__':
 
 try:
 	while True:
-    		if button1.is_pressed == True:
+     	get_status()
+     	if button1.is_pressed == True and status == 0:
 			onOff(strip, Color(255, 255, 255))
-		elif button2.is_pressed == True:
+		elif button1.is_pressed == True and status == 1:
 			onOff(strip, Color(0, 0, 0))
 except KeyboardInterrupt():
     sys.exit()
