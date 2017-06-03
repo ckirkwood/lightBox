@@ -1,5 +1,6 @@
 import time
-from flask import Flask, request, render_template
+from colorsys import hsv_to_rgb, rgb_to_hsv
+from flask import Flask, request, render_template, jsonify
 from gpiozero import Button
 from neopixel import *
 import signal
@@ -35,6 +36,13 @@ def onOff(strip, color):
 		strip.setPixelColor(i, color)
 		strip.show()
 
+def lights_on(c):
+    r, g, b = hex_to_rgb(c)
+        for pixel in range(strip.numPixels()):
+            strip.set_pixel(pixel, r, g, b)
+    strip.show()
+    return True
+
 # Define functions which animate LEDs in various ways.
 def colorWipe(strip, color, wait_ms=50):
 	"""Wipe color across display a pixel at a time."""
@@ -52,21 +60,27 @@ def get_status():
                 status = 0
     return status
 
-
-def allColor(strip, color):
-	for i in range(strip.numPixels()):
-		strip.setPixelColor(i, color)
-	strip.show()
-
-@app.route("/")
-def index():
-	return render_template('index.html')
+@app.route('/lightBox/api/v1.0/<string:st>', methods=['GET'])
+def set_status(st):
+    global status, Color
+    if st == 'on':
+        status = 1
+        onOff(strip, Color(255, 255, 255))
+    elif st == 'off':
+        status = 0        
+    elif st == 'status':
+        status = get_status()
+    return jsonify({'status': status, 'colour': colour})
 
 @app.route("/set_color", methods=['POST'])
 def set_color():
 	rgb = request.get_json()
 	allColor(strip, Color(rgb['r'], rgb['g'], rgb['b']))
 	return render_template('index.html'), 204
+
+@app.errorhandler(404)
+def not_found(error):
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 # Main programme logic
 
