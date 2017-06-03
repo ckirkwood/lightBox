@@ -1,8 +1,14 @@
 import time
-import sys
+from flask import Flask, request, render_template
 from gpiozero import Button
 from neopixel import *
+import signal
+import sys
 
+def signal_handler(signal, frame):
+        colorWipe(strip, Color(0,0,0))
+        sys.exit(0)
+signal.signal(signal.SIGINT, signal_handler)
 
 # LED strip configuration:
 LED_COUNT      = 48
@@ -12,9 +18,16 @@ LED_DMA        = 5
 LED_BRIGHTNESS = 255
 LED_INVERT     = False
 
+# Setup Flask api
+app=Flask(__name__)
+
 # Button configuration
 button1 = Button(19)
 button2 = Button(16)
+
+# Create NeoPixel object, initialise library 
+strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT)
+strip.begin()
 
 # Basic on/off commands (set color to 0, 0, 0 for off)
 def onOff(strip, color):
@@ -40,19 +53,31 @@ def get_status():
     return status
 
 
-# Main program logic:
-if __name__ == '__main__':
-	strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
-	strip.begin()
+def allColor(strip, color):
+	for i in range(strip.numPixels()):
+		strip.setPixelColor(i, color)
+	strip.show()
 
-	print ('Press Ctrl-C to quit.')
+@app.route("/")
+def index():
+	return render_template('index.html')
 
-try:
-	while True:
-     	get_status()
-     	if button1.is_pressed == True and status == 0:
-			onOff(strip, Color(255, 255, 255))
-		elif button1.is_pressed == True and status == 1:
-			onOff(strip, Color(0, 0, 0))
-except KeyboardInterrupt():
-    sys.exit()
+@app.route("/set_color", methods=['POST'])
+def set_color():
+	rgb = request.get_json()
+	allColor(strip, Color(rgb['r'], rgb['g'], rgb['b']))
+	return render_template('index.html'), 204
+
+# Main programme logic
+
+if __name__ == "__main__":
+	app.run(host='192.168.1.108', port=80, debug=True)
+
+	colorWipe(strip, Color(0, 0, 255))
+	colorWipe(strip, Color(0, 0, 0))
+
+while True:
+	if button1.is_pressed == True:
+		onOff(strip, Color(255, 255, 255))
+	elif button2.is_pressed == True:
+		onOff(strip, Color(0, 0, 0))
