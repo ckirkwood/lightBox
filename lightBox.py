@@ -1,5 +1,8 @@
-import time, sys
+import time
+import sys
+from gpiozero import Button
 from neopixel import *
+
 
 # LED strip configuration:
 LED_COUNT      = 48
@@ -8,6 +11,10 @@ LED_FREQ_HZ    = 800000
 LED_DMA        = 5
 LED_BRIGHTNESS = 255
 LED_INVERT     = False
+
+# Button configuration
+button1 = Button(19)
+button2 = Button(16)
 
 # Basic on/off commands (set color to 0, 0, 0 for off)
 def onOff(strip, color):
@@ -30,6 +37,11 @@ if __name__ == '__main__':
 
 	print ('Press Ctrl-C to quit.')
 
+try:
 	while True:
-		onOff(strip, Color(255, 255, 255))
-	
+    		if button1.is_pressed == True:
+			onOff(strip, Color(255, 255, 255))
+		elif button2.is_pressed == True:
+			onOff(strip, Color(0, 0, 0))
+except KeyboardInterrupt():
+    sys.exit()
