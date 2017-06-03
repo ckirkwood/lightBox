@@ -29,6 +29,5 @@ if __name__ == '__main__':
 
 	print ('Press Ctrl-C to quit.')
 	while True:
-		onOff(strip, Color(255, 0, 0))
+		onOff(strip, Color(255, 255, 255))
 		time.sleep(1)
-		allOff()
