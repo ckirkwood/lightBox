@@ -2,12 +2,18 @@ import time
 from neopixel import *
 
 # LED strip configuration:
-LED_COUNT      = 48      
-LED_PIN        = 18     
-LED_FREQ_HZ    = 800000  
-LED_DMA        = 5       
-LED_BRIGHTNESS = 255     
-LED_INVERT     = False   
+LED_COUNT      = 48
+LED_PIN        = 18
+LED_FREQ_HZ    = 800000
+LED_DMA        = 5
+LED_BRIGHTNESS = 255
+LED_INVERT     = False
+
+# Basic on/off commands (set color to 0, 0, 0 for off)
+def onOff(strip, color):
+	for i in range(strip.numPixels()):
+		strip.setPixelColor(i, color)
+		strip.show()
 
 # Define functions which animate LEDs in various ways.
 def colorWipe(strip, color, wait_ms=50):
@@ -16,11 +22,6 @@ def colorWipe(strip, color, wait_ms=50):
 		strip.setPixelColor(i, color)
 		strip.show()
 		time.sleep(wait_ms/1000.0)
-
-def onOff(strip, color):
-	for i in range(strip.numPixels()):	
-		strip.setPixelColor(i, color)
-		strip.show()
 
 # Main program logic:
 if __name__ == '__main__':
