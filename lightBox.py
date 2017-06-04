@@ -1,6 +1,6 @@
 import time
 from colorsys import hsv_to_rgb, rgb_to_hsv
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, make_response
 from gpiozero import Button
 from neopixel import *
 import signal
@@ -26,9 +26,17 @@ app=Flask(__name__)
 button1 = Button(19)
 button2 = Button(16)
 
-# Create NeoPixel object, initialise library 
+color = 'FFFFFF'
+status = 0
+
+# Create NeoPixel object, initialise library
 strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT)
 strip.begin()
+
+def hex_to_rgb(value):
+    value = value.lstrip('#')
+    length = len(value)
+    return tuple(int(value[i:i + length / 3], 16) for i in range(0, length, length / 3))
 
 # Basic on/off commands (set color to 0, 0, 0 for off)
 def onOff(strip, color):
@@ -42,6 +50,12 @@ def lights_on(c):
             strip.set_pixel(pixel, r, g, b)
     strip.show()
     return True
+
+def lights_off():
+    for pixel in range(strip.numPixels()):
+		strip.setPixelColor(pixel, 0, 0, 0)
+		strip.show()
+        return True
 
 # Define functions which animate LEDs in various ways.
 def colorWipe(strip, color, wait_ms=50):
@@ -62,21 +76,16 @@ def get_status():
 
 @app.route('/lightBox/api/v1.0/<string:st>', methods=['GET'])
 def set_status(st):
-    global status, Color
+    global status, color
     if st == 'on':
         status = 1
-        onOff(strip, Color(255, 255, 255))
+        lightsOn(330019)
     elif st == 'off':
-        status = 0        
+        status = 0
+        lights_off()
     elif st == 'status':
         status = get_status()
-    return jsonify({'status': status, 'colour': colour})
-
-@app.route("/set_color", methods=['POST'])
-def set_color():
-	rgb = request.get_json()
-	allColor(strip, Color(rgb['r'], rgb['g'], rgb['b']))
-	return render_template('index.html'), 204
+    return jsonify({'status': status, 'color': color})
 
 @app.errorhandler(404)
 def not_found(error):
@@ -92,6 +101,6 @@ if __name__ == "__main__":
 
 while True:
 	if button1.is_pressed == True:
-		onOff(strip, Color(255, 255, 255))
+		lightsOn(330019)
 	elif button2.is_pressed == True:
-		onOff(strip, Color(0, 0, 0))
+		lightsOff()
