@@ -1,4 +1,5 @@
 import time
+import urllib
 from colorsys import hsv_to_rgb, rgb_to_hsv
 from flask import Flask, request, render_template, jsonify, make_response
 from gpiozero import Button
@@ -34,13 +35,13 @@ strip.begin()
 
 # Define functions
 def allOn(strip, color):
-    """Turn all pixels on"""
+    	"""Turn all pixels on"""
 	for i in range(strip.numPixels()):
 		strip.setPixelColor(i, color)
 		strip.show()
 
 def allOff():
-    """Turn all pixels off"""
+	"""Turn all pixels off"""
 	return allOn(strip, Color(0, 0, 0))
 
 def colorWipe(strip, color, wait_ms=50):
@@ -108,9 +109,9 @@ if __name__ == "__main__":
 	colorWipe(strip, Color(0, 0, 255))
 	colorWipe(strip, Color(0, 0, 0))
 	app.run(host='192.168.1.108', port=80, debug=True)
-
-while True:
 	if button1.is_pressed == True:
-		allOn(strip, Color(255, 255, 255))
+		req = urllib.urlopen('http://192.168.1.108/lightBox/api/v1.0/on')
+		time.sleep(0.2)
 	elif button2.is_pressed == True:
-		allOff()
+		req = urllib.urlopen('http://192.168.1.108/lightBox/api/v1.0/off')
+		time.sleep(0.2)
