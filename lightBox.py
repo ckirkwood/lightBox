@@ -42,10 +42,11 @@ def allOn(strip, color):
 		strip.setPixelColor(i, color)
 		strip.show()
 
-# Define functions which animate LEDs in various ways.
 def allOff():
-	allOn(strip, Color(0, 0, 0)
+    for i in range(strip.numPixels()):
+        allOn(strip, Color(0, 0, 0)
 
+# Define functions which animate LEDs in various ways.
 def colorWipe(strip, color, wait_ms=50):
 	"""Wipe color across display a pixel at a time."""
 	for i in range(strip.numPixels()):
