@@ -113,6 +113,10 @@ def set_status(st):
         	status = get_status()
     		return jsonify({'status': status, 'color': color})
 
+@app.route('/lightBox/api/v1.0/on')
+def on():
+	return render_template('index.html')
+
 @app.errorhandler(404)
 def not_found(error):
 	return make_response(jsonify({'error': 'Not found'}), 404)
