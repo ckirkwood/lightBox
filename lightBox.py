@@ -1,12 +1,12 @@
 import time
 import urllib
-from colorsys import hsv_to_rgb, rgb_to_hsv
 from flask import Flask, request, render_template, jsonify, make_response
 from gpiozero import Button
 from neopixel import *
 import signal
 import sys
 
+# Turn off pixels at ctrl-c
 def signal_handler(signal, frame):
         colorWipe(strip, Color(0,0,0))
         sys.exit(0)
@@ -20,13 +20,14 @@ LED_DMA        = 5
 LED_BRIGHTNESS = 255
 LED_INVERT     = False
 
-# Setup Flask api
+# Initialise Flask api
 app=Flask(__name__)
 
 # Button configuration
 button1 = Button(19)
 button2 = Button(16)
 
+# Initial status (off)
 status = 0
 
 # Create NeoPixel object, initialise library
@@ -87,36 +88,35 @@ def get_status():
                 	status = 0
     		return status
 
+# Direct url to front end template
 @app.route("/lightBox/api/v1.0/")
 def index():
 	return render_template('index.html')
 
+# Set up API endpoints
 @app.route('/lightBox/api/v1.0/<string:st>', methods=['GET'])
 def set_status(st):
 	global status, color
     	if st == 'on':
         	status = 1
-		return allOn(strip, Color(255, 255, 255))
+		return index(), allOn(strip, Color(255, 255, 255))
         elif st == 'blue':
         	status = 1
-        	return colorWipe(strip, Color(255, 0, 0))
+        	return index(), colorWipe(strip, Color(255, 0, 0))
 	elif st == 'red':
 		status = 1
-		return colorWipe(strip, Color(0, 255, 0))
+		return index(), colorWipe(strip, Color(0, 255, 0))
     	elif st == 'green':
 		status = 1
-		return colorWipe(strip, Color(0, 0, 255))
+		return index(), colorWipe(strip, Color(0, 0, 255))
 	elif st == 'off':
         	status = 0
-		return allOff()
+		return index(), allOff()
     	elif st == 'status':
         	status = get_status()
     		return jsonify({'status': status, 'color': color})
 
-@app.route('/lightBox/api/v1.0/on')
-def on():
-	return render_template('index.html')
-
+# 404 response
 @app.errorhandler(404)
 def not_found(error):
 	return make_response(jsonify({'error': 'Not found'}), 404)
@@ -126,6 +126,7 @@ if __name__ == "__main__":
 	colorWipe(strip, Color(0, 0, 255))
 	colorWipe(strip, Color(0, 0, 0))
 	app.run(host='192.168.1.108', port=80, debug=True)
+	
 	if button1.is_pressed == True:
 		req = urllib.urlopen('http://192.168.1.108/lightBox/api/v1.0/on')
 		time.sleep(0.2)
