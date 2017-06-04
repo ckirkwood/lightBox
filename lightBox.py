@@ -32,16 +32,17 @@ status = 0
 strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT)
 strip.begin()
 
-# Basic on/off commands (set color to 0, 0, 0 for off)
+# Define functions
 def allOn(strip, color):
+    """Turn all pixels on"""
 	for i in range(strip.numPixels()):
 		strip.setPixelColor(i, color)
 		strip.show()
 
 def allOff():
+    """Turn all pixels off"""
 	return allOn(strip, Color(0, 0, 0))
-	
-# Define functions which animate LEDs in various ways.
+
 def colorWipe(strip, color, wait_ms=50):
 	"""Wipe color across display a pixel at a time."""
 	for i in range(strip.numPixels()):
