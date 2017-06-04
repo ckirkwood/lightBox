@@ -26,38 +26,26 @@ app=Flask(__name__)
 button1 = Button(19)
 button2 = Button(16)
 
-color = 'FFFFFF'
-status = 0
+# Set initial status
+status = {'state': {0},
+          'color': {255, 255, 255},
+          'brightness': {255}
+         }
 
 # Create NeoPixel object, initialise library
 strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT)
 strip.begin()
 
-def hex_to_rgb(value):
-    value = value.lstrip('#')
-    length = len(value)
-    return tuple(int(value[i:i + length / 3], 16) for i in range(0, length, length / 3))
-
 # Basic on/off commands (set color to 0, 0, 0 for off)
-def onOff(strip, color):
+def allOn(strip, color):
 	for i in range(strip.numPixels()):
 		strip.setPixelColor(i, color)
 		strip.show()
 
-def lights_on(c):
-    r, g, b = hex_to_rgb(c)
-        for pixel in range(strip.numPixels()):
-            strip.set_pixel(pixel, r, g, b)
-    strip.show()
-    return True
-
-def lights_off():
-    for pixel in range(strip.numPixels()):
-		strip.setPixelColor(pixel, 0, 0, 0)
-		strip.show()
-        return True
-
 # Define functions which animate LEDs in various ways.
+def allOff():
+	allOn(strip, Color(0, 0, 0)
+
 def colorWipe(strip, color, wait_ms=50):
 	"""Wipe color across display a pixel at a time."""
 	for i in range(strip.numPixels()):
@@ -65,9 +53,36 @@ def colorWipe(strip, color, wait_ms=50):
 		strip.show()
 		time.sleep(wait_ms/1000.0)
 
+def wheel(pos):
+"""Generate rainbow colors across 0-255 positions."""
+if pos < 85:
+	return Color(pos * 3, 255 - pos * 3, 0)
+elif pos < 170:
+	pos -= 85
+	return Color(255 - pos * 3, 0, pos * 3)
+else:
+	pos -= 170
+	return Color(0, pos * 3, 255 - pos * 3)
+
+def rainbow(strip, wait_ms=20, iterations=1):
+"""Draw rainbow that fades across all pixels at once."""
+for j in range(256*iterations):
+for i in range(strip.numPixels()):
+	strip.setPixelColor(i, wheel((i+j) & 255))
+	strip.show()
+	time.sleep(wait_ms/1000.0)
+
+def rainbowCycle(strip, wait_ms=20, iterations=5):
+"""Draw rainbow that uniformly distributes itself across all pixels."""
+for j in range(256*iterations):
+for i in range(strip.numPixels()):
+	strip.setPixelColor(i, wheel((int(i * 256 / strip.numPixels()) + j) & 255))
+	strip.show()
+	time.sleep(wait_ms/1000.0)
+
 def get_status():
     global status
-    for pixel in range(48):
+    for pixel in range(strip.numPixels()):
         if strip.getPixelColor(pixel) != (0, 0, 0):
                 status = 1
         else:
@@ -76,13 +91,13 @@ def get_status():
 
 @app.route('/lightBox/api/v1.0/<string:st>', methods=['GET'])
 def set_status(st):
-    global status, color
+    global status, Color
     if st == 'on':
         status = 1
-        lightsOn(330019)
+        ollOn(strip, Color(255, 255, 255)
     elif st == 'off':
         status = 0
-        lights_off()
+        allOff()
     elif st == 'status':
         status = get_status()
     return jsonify({'status': status, 'color': color})
@@ -92,7 +107,6 @@ def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
 # Main programme logic
-
 if __name__ == "__main__":
 	app.run(host='192.168.1.108', port=80, debug=True)
 
@@ -101,6 +115,6 @@ if __name__ == "__main__":
 
 while True:
 	if button1.is_pressed == True:
-		lightsOn(330019)
+		allOn(strip, Color(255, 255, 255)
 	elif button2.is_pressed == True:
-		lightsOff()
+		allOff()
