@@ -3,44 +3,23 @@
 <head>
   <meta charset="utf-8">
   <title>lightBox Controller</title>
-  <link href="style.css" rel=stylesheet type=text/css>
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='colpick.css') }}">
+  <link href="https://fonts.googleapis.com/css?family=Fredoka+One|Monoton" rel="stylesheet">
 </head>
 <body>
   <header>
-    <h1>lightBox Controller</h1>
+    <h1>lightBox</h1>
   </header>
 
-      <div class="button_grid">
-        <p>
-          <a href="http://192.168.1.108/lightBox/api/v1.0/on">ON</a>
-        </p>
-      </div>
+    <div class="button_grid">
+      <a href="http://192.168.1.108/lightBox/api/v1.0/on">ON</a>
+      <a href="http://192.168.1.108/lightBox/api/v1.0/off">OFF</a>
+      <a href="http://192.168.1.108/lightBox/api/v1.0/red">RED</a>
+      <a href="http://192.168.1.108/lightBox/api/v1.0/blue">BLUE</a>
+      <a href="http://192.168.1.108/lightBox/api/v1.0/green">GREEN</a>
+    </div>
 
-      <div class="button_grid">
-        <p>
-          <a href="http://192.168.1.108/lightBox/api/v1.0/off">OFF</a>
-        </p>
-      </div>
 
-      <div class="button_grid">
-        <p>
-          <a href="http://192.168.1.108/lightBox/api/v1.0/red">RED</a>
-        </p>
-      </div>
-
-      <div class="button_grid">
-        <p>
-          <a href="http://192.168.1.108/lightBox/api/v1.0/blue">BLUE</a>
-        </p>
-      </div>
-
-      <div class="button_grid">
-        <p>
-          <a href="http://192.168.1.108/lightBox/api/v1.0/green">GREEN</a>
-        </p>
-      </div>
-
-    
 
   <footer>
 

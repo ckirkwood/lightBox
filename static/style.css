@@ -1,0 +1,55 @@
+html {
+  font-size: 16px;
+}
+
+* {
+
+}
+
+body {
+  min-width: 100%;
+  min-height: 100%;
+  max-height: 50%;
+  max-width: 50%;
+  margin: 0;
+  padding: 0;
+  background:#489eaa;
+}
+
+h1 {
+  text-align: center;
+  font-family: 'Monoton', cursive;
+  color: #ffffff;
+  font-size:70px;
+  font-weight: 400;
+}
+
+p {
+  text-align: center;
+}
+
+.button_grid {
+  padding: 40px 0;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+.button_grid a {
+  background-color: #a4e9db;
+  font-family: 'Fredoka One', cursive;
+  text-decoration: none;
+  font-size: 40px;
+  color: #d0328c;
+  border-radius: 10px;
+  display: inline-block;
+  width: 150px;
+  margin: 20px 20px;
+  padding: 40px;
+  text-transform: uppercase;
+}
+
+.button_grid a:hover {
+  color: #a4e9db;
+  background-color: #d0328c;
+}
