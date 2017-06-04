@@ -87,18 +87,28 @@ def get_status():
                 	status = 0
     		return status
 
+@app.route("/lightBox/api/v1.0/")
+def index():
+	return render_template('index.html')
+
 @app.route('/lightBox/api/v1.0/<string:st>', methods=['GET'])
 def set_status(st):
 	global status, color
     	if st == 'on':
         	status = 1
-		    return allOn(strip, Color(255, 255, 255))
-        if st == 'blue':
-            status = 1
-            return colorWipe(strip, Color(255, 0, 0))
-    	elif st == 'off':
+		return allOn(strip, Color(255, 255, 255))
+        elif st == 'blue':
+        	status = 1
+        	return colorWipe(strip, Color(255, 0, 0))
+	elif st == 'red':
+		status = 1
+		return colorWipe(strip, Color(0, 255, 0))
+    	elif st == 'green':
+		status = 1
+		return colorWipe(strip, Color(0, 0, 255))
+	elif st == 'off':
         	status = 0
-		    return allOff()
+		return allOff()
     	elif st == 'status':
         	status = get_status()
     		return jsonify({'status': status, 'color': color})
