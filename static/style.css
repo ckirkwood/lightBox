@@ -107,6 +107,36 @@ p {
   padding: 20px;
 }
 
+#cyan {
+  background-color: #00ffff;
+  border-radius: 100px;
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  margin: 20px 20px;
+  padding: 20px;
+}
+
+#yellow {
+  background-color: #ffff00;
+  border-radius: 100px;
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  margin: 20px 20px;
+  padding: 20px;
+}
+
+#magenta {
+  background-color: #ff00ff;
+  border-radius: 100px;
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  margin: 20px 20px;
+  padding: 20px;
+}
+
 .sys_controls {
   padding: 40px 0;
   position: relative;
