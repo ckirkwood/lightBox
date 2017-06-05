@@ -74,15 +74,16 @@ p {
   border-radius: 100px;
   display: inline-block;
   width: 100px;
-  margin: 20px 20px;
+  height: 100px;
   padding: 20px;
 }
 
 #green {
+  background-color: #00ff00;
   border-radius: 100px;
   display: inline-block;
   width: 100px;
-  margin: 20px 20px;
+  height: 100px;
   padding: 20px;
 }
 
@@ -91,7 +92,7 @@ p {
   border-radius: 100px;
   display: inline-block;
   width: 100px;
-  margin: 20px 20px;
+  height: 100px;
   padding: 20px;
 }
 
