@@ -120,30 +120,36 @@ def set_status(st):
         elif st == 'blue':
         	status = 1
         	return index(), colorWipe(strip, Color(255, 0, 0))
-	    elif st == 'red':
-		    status = 1
-		    return index(), colorWipe(strip, Color(0, 255, 0))
+	elif st == 'red':
+		status = 1
+		return index(), colorWipe(strip, Color(0, 255, 0))
         elif st == 'green':
-		    status = 1
-		    return index(), colorWipe(strip, Color(0, 0, 255))
+		status = 1
+		return index(), colorWipe(strip, Color(0, 0, 255))
         elif st == 'cyan':
-            stats = 1
-            return index(), colorWipe(strip, Color(255, 0, 255))
+                status = 1
+                return index(), colorWipe(strip, Color(255, 0, 255))
         elif st == 'yellow':
-            stats = 1
-        r    eturn index(), colorWipe(strip, Color(0, 255, 255))
+                status = 1
+                return index(), colorWipe(strip, Color(0, 255, 255))
         elif st == 'magenta':
-            stats = 1
-            return index(), colorWipe(strip, Color(255, 255, 0))
-	    elif st == 'off':
+                status = 1
+                return index(), colorWipe(strip, Color(255, 255, 0))
+	elif st == 'orange':
+		status = 1
+		return index(), colorWipe(strip, Color(0, 255, 125))
+	elif st == 'purple':
+		status = 1
+		return index(), colorWipe(strip, Color(255, 125, 0))
+	elif st == 'off':
         	status = 0
-		    return index(), allOff()
-	    elif st == 'shutdown':
-		    status = 0
-		    return shutdown()
-	    elif st == 'reboot':
-		    status = 0
-		    return reboot()
+		return index(), allOff()
+	elif st == 'shutdown':
+		status = 0
+		return shutdown()
+	elif st == 'reboot':
+		status = 0
+		return reboot()
     	elif st == 'status':
         	status = get_status()
     		return jsonify({'status': status, 'color': color})

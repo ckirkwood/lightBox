@@ -37,7 +37,9 @@ p {
   padding: 40px 0;
   position: relative;
   text-align: center;
-  width: 100%;
+  width: 75%;
+  height: 70%;
+  margin: auto auto;
 }
 
 .button_grid a {
@@ -129,6 +131,26 @@ p {
 
 #magenta {
   background-color: #ff00ff;
+  border-radius: 100px;
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  margin: 20px 20px;
+  padding: 20px;
+}
+
+#orange {
+  background-color: #ff7d00;
+  border-radius: 100px;
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  margin: 20px 20px;
+  padding: 20px;
+}
+
+#purple {
+  background-color: #7d00ff;
   border-radius: 100px;
   display: inline-block;
   width: 100px;
