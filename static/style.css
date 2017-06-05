@@ -55,20 +55,70 @@ p {
 
 #on {
   background-color: #ffffff;
+  border-radius: 100%;
+  display: inline-block;
+  width: 150px;
+  margin: 20px 20px;
+  padding: 40px;
 }
 
 #off {
   background-color: #000000;
+  border-radius: 100%;
+  display: inline-block;
+  width: 150px;
+  margin: 20px 20px;
+  padding: 40px;
 }
 
 #red {
   background-color: #ff0000;
+  border-radius: 100%;
+  display: inline-block;
+  width: 150px;
+  margin: 20px 20px;
+  padding: 40px;
 }
 
 #green {
   background-color: #00ff00;
+  border-radius: 100%;
+  display: inline-block;
+  width: 150px;
+  margin: 20px 20px;
+  padding: 40px;
 }
 
 #blue {
-  background-color: #0000ff;
+  background-color: #0000ff
+  border-radius: 100%;
+  display: inline-block;
+  width: 150px;
+  margin: 20px 20px;
+  padding: 40px;
+}
+
+.sys_controls {
+  padding: 40px 0;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+.sys_controls a {
+  background-color: #a4e9db;
+  font-family: 'Fredoka One', cursive;
+  text-decoration: none;
+  font-size: 24px;
+  color: #d0328c;
+  border-radius: 10px;
+  display: inline-block;
+  width: 150px;
+  margin: 20px 20px;
+  padding: 40px;
+  text-transform: uppercase;
+}
+
+.sys_controls a:hover {
+
 }

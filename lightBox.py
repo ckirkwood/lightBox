@@ -5,6 +5,7 @@ from gpiozero import Button
 from neopixel import *
 import signal
 import sys
+import os
 
 # Turn off pixels at ctrl-c
 def signal_handler(signal, frame):
@@ -88,6 +89,22 @@ def get_status():
                 	status = 0
     		return status
 
+def buttons():
+	if button1.is_pressed == True:
+        	req = urllib.urlopen('http://192.168.1.108/lightBox/api/v1.0/on')
+                time.sleep(0.2)
+        elif button2.is_pressed == True:
+                req = urllib.urlopen('http://192.168.1.108/lightBox/api/v1.0/off')
+                time.sleep(0.2)
+
+# Function to shutdown Pi
+def shutdown():
+	os.system("sudo shutdown -h now")
+
+# Function to reboot Pi
+def reboot():
+	os.system("sudo reboot -h now")
+
 # Direct url to front end template
 @app.route("/lightBox/api/v1.0/")
 def index():
@@ -112,6 +129,12 @@ def set_status(st):
 	elif st == 'off':
         	status = 0
 		return index(), allOff()
+	elif st == 'shutdown':
+		status = 0
+		return shutdown()
+	elif st == 'reboot':
+		status = 0
+		return reboot()
     	elif st == 'status':
         	status = get_status()
     		return jsonify({'status': status, 'color': color})
