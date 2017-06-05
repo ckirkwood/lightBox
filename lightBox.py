@@ -91,10 +91,10 @@ def get_status():
 
 def buttons():
 	if button1.is_pressed == True:
-        	req = urllib.urlopen('http://192.168.1.108/lightBox/api/v1.0/on')
+        	req = urllib.urlopen('http://127.0.0.0/lightBox/api/v1.0/on')
                 time.sleep(0.2)
         elif button2.is_pressed == True:
-                req = urllib.urlopen('http://192.168.1.108/lightBox/api/v1.0/off')
+                req = urllib.urlopen('http://127.0.0.0/lightBox/api/v1.0/off')
                 time.sleep(0.2)
 
 # Function to shutdown Pi
@@ -148,11 +148,11 @@ def not_found(error):
 if __name__ == "__main__":
 	colorWipe(strip, Color(0, 0, 255))
 	colorWipe(strip, Color(0, 0, 0))
-	app.run(host='192.168.1.108', port=80, debug=True)
-	
+	app.run(host='0.0.0.0', port=80, debug=True)
+
 	if button1.is_pressed == True:
-		req = urllib.urlopen('http://192.168.1.108/lightBox/api/v1.0/on')
+		req = urllib.urlopen('http://127.0.0.0/lightBox/api/v1.0/on')
 		time.sleep(0.2)
 	elif button2.is_pressed == True:
-		req = urllib.urlopen('http://192.168.1.108/lightBox/api/v1.0/off')
+		req = urllib.urlopen('http://127.0.0.0/lightBox/api/v1.0/off')
 		time.sleep(0.2)

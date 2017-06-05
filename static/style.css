@@ -51,26 +51,28 @@ p {
 
 
 
-#on {
+#on a{
   background-color: #ffffff;
   border-radius: 100px;
   display: inline-block;
   width: 100px;
+  height: 100px;
   margin: 20px;
   padding: 20px;
 }
 
-#off {
+#off a{
   background-color: #000000;
   border-radius: 100px;
   display: inline-block;
   width: 100px;
+  height: 100px;
   margin: 20px;
   padding: 20px;
 }
 
 
-#red {
+#red a{
   background-color: #ff0000;
   border-radius: 100px;
   display: inline-block;
@@ -80,7 +82,7 @@ p {
   padding: 20px;
 }
 
-#green {
+#green a{
   background-color: #00ff00;
   border-radius: 100px;
   display: inline-block;
@@ -90,7 +92,7 @@ p {
   padding: 20px;
 }
 
-#blue {
+#blue a{
   background-color: #0000ff;
   border-radius: 100px;
   display: inline-block;
