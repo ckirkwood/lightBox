@@ -36,12 +36,11 @@ p {
 }
 
 .button_grid a {
-  background-color: #a4e9db;
   font-family: 'Fredoka One', cursive;
   text-decoration: none;
   font-size: 40px;
   color: #d0328c;
-  border-radius: 10px;
+  border-radius: 100%;
   display: inline-block;
   width: 150px;
   margin: 20px 20px;
@@ -52,4 +51,24 @@ p {
 .button_grid a:hover {
   color: #a4e9db;
   background-color: #d0328c;
+}
+
+#on {
+  background-color: #ffffff;
+}
+
+#off {
+  background-color: #000000;
+}
+
+#red {
+  background-color: #ff0000;
+}
+
+#green {
+  background-color: #00ff00;
+}
+
+#blue {
+  background-color: #0000ff;
 }
