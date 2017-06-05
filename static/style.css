@@ -42,7 +42,7 @@ p {
   color: #d0328c;
   border-radius: 100px;
   display: inline-block;
-  width: 100px;
+  width: auto;
   margin: 10px 10px;
   padding: 20px;
   text-transform: uppercase;
@@ -67,7 +67,7 @@ p {
   margin: 20px 20px;
   padding: 20px;
 }
-}
+
 
 #red {
   background-color: #ff0000;
