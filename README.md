@@ -7,8 +7,8 @@ lightBox v1.0 is a cardboard prototype using WS2812 RGB Neopixel LEDs, driven by
 - Raspberry Pi Zero W
 - Adafruit Perma-Proto HAT
 - 1x 1N4001 diode
-- 1000 µF capacitor
-- DC Barrel jack adapter
+- 1x 1000 µF capacitor
+- DC barrel jack adapter
 - 12v 3A power supply (requirements vary between LED types)
 - Connection wires
 
